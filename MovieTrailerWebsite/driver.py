@@ -3,8 +3,8 @@ import fresh_tomatoes
 import requests
 import re
 
-BASEURL_OMDB = "http://www.omdbapi.com/"		# baseurl of the OMDb API
-BASEURL_YOUTUBE = "http://www.youtube.com/results"		# baseurl of YouTube search
+BASEURL_OMDB = "http://www.omdbapi.com/"	# baseurl of the OMDb API
+BASEURL_YOUTUBE = "http://www.youtube.com/results"	# baseurl of YouTube search
 
 # array of movie names
 MOVIE_NAMES = ["Train to Busan",
@@ -26,9 +26,11 @@ for movie_name in MOVIE_NAMES:
 	# grab movie details from OMDb API, converted to Python dictionary
 	movie_info = requests.get(BASEURL_OMDB, params=params_omdb).json()
 
-	# grab the trailer from YouTube by querying the movie title and returning the URL of the first result
-	# partial code from https://www.codeproject.com/Articles/873060/Python-Search-Youtube-for-Video
-	params_youtube = {"search_query": movie_info["Title"] + " trailer"}		# query the [movie name] + "trailer"
+	# Get the trailer from YouTube by querying the movie title and returning
+	# the URL of the first result.
+	# Partial code from
+	# https://www.codeproject.com/Articles/873060/Python-Search-Youtube-for-Video
+	params_youtube = {"search_query": movie_info["Title"] + " trailer"}
 	trailer_results = requests.get(BASEURL_YOUTUBE, params=params_youtube).text
 	video_urls = re.findall(r'href=\"\/watch\?v=(.{11})', trailer_results)
 	trailer_url = "http://www.youtube.com/watch?v=" + video_urls[0]
@@ -39,4 +41,5 @@ for movie_name in MOVIE_NAMES:
 							  movie_info["Poster"],
 							  trailer_url))
 
-fresh_tomatoes.open_movies_page(movie_objects)		# render and open the movies website
+# render and open the movies website
+fresh_tomatoes.open_movies_page(movie_objects)

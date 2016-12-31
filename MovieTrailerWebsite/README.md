@@ -12,4 +12,5 @@ Enjoy!
 
 1. Ensure the latest version of Python 2.7 is installed on your system.
 2. [Install](http://docs.python-requests.org/en/master/user/install/#install) the Requests HTTP library
-3. Navigate to the root project directory and execute `driver.py` to launch the website
+3. Download and extract the project files
+4. Navigate to the project directory and execute `driver.py` to launch the website
