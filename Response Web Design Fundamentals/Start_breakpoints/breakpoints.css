@@ -1,0 +1,32 @@
+@media screen and (max-width: 650px) {
+    .header__title {
+        font-size: 2em;
+    }
+    .header__logo {
+        height: 35px;
+    }
+}
+
+@media screen and (min-width: 651px) {
+    .header__title {
+        font-size: 3em;
+    }
+    .header__logo {
+        height: 40px;
+    }
+
+    .hero {
+        max-width: 50%;
+    }
+
+    .top-news {
+        max-width: 50%;
+    }
+
+    .top-news, .scores, .weather {
+        max-width: 50%;
+    }
+
+
+
+}
