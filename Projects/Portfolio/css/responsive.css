@@ -1,0 +1,8 @@
+/* Two-column layout on larger viewports. */
+@media screen and (min-width: 650px) {
+    article {
+        margin-left: 1em;
+        margin-right: 1em;
+        max-width: 45%;
+    }
+}
