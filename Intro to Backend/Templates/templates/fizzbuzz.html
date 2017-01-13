@@ -1,0 +1,17 @@
+{% block content %}
+
+<ul>
+  {% for i in range(1, n+1) %}
+    {% if i % 3 == 0 and i % 5 == 0 %}
+      <li>FizzBuzz</li>
+    {% elseif i % 3 == 0 %}
+      <li>Fizz</li>
+    {% elseif i % 5 == 0 %}
+      <li>Buzz</li>
+    {% else %}
+      <li>i</li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+{% endblock %}
