@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="post">
+  <div class="post-title">{{post.subject}}</div>
+  <div class="post-created">{{post.created}}</div>
+  <hr>
+  <pre class="post-body">{{post.content}}</pre>
+</div>
+
+{% endblock %}
