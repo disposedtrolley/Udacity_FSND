@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Signup</h1>
+
+<form method="post" id="registrationForm">
+  <label>
+    Username
+    <input type="text" name="username" value={{username}}>
+  </label>
+  {% if not valid_username %}
+    <div class="error">That's not a valid username.</div>
+  {% endif %}
+  <br>
+  <label>
+    Password
+    <input type="password" name="password">
+  </label>
+  {% if not valid_password %}
+    <div class="error">That's not a valid password.</div>
+  {% endif %}
+  <br>
+  <label>
+    Verify Password
+    <input type="password" name="verify">
+  </label>
+  {% if not valid_verify %}
+    <div class="error">Your passwords don't match.</div>
+  {% endif %}
+  <br>
+  <label>
+    Email (optional)
+    <input type="text" name="email" value="{{email}}">
+  </label>
+  {% if not valid_email %}
+    <div class="error">That's not a valid email address.</div>
+  {% endif %}
+  <br>
+  <input type="submit">
+</form>
+{% endblock %}

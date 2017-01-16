@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Login</h1>
+
+<form method="post" id="login-form">
+  <label>
+    Username
+    <input type="text" name="username" value={{username}}>
+  </label>
+  <br>
+  <label>
+    Password
+    <input type="password" name="password">
+  </label>
+  {% if not valid_login %}
+    <div class="error">Invalid credentials.</div>
+  {% endif %}
+  <input type="submit">
+</form>
+{% endblock %}
