@@ -86,7 +86,7 @@ class SignupPage(Handler):
                             email=email)
         else:
             # hash password
-            password_hashed = hash.make_secure_val(password)
+            password_hashed = hash.make_pw_hash(username, password)
             # add user to the database
             new_user = my_db.User(username=username, password=password_hashed)
             new_user.put()
@@ -94,7 +94,7 @@ class SignupPage(Handler):
             # make cookie value
             new_user_cookie = str(hash.make_secure_val(user_id))
             # set cookie
-            self.response.headers.add_header('Set-Cookie', 'user_id=%s; Path=%s' % (new_user_cookie, "/"))
+            self.response.headers.add_header("Set-Cookie", "user_id=%s; Path=%s" % (new_user_cookie, "/"))
             # redirect to welcome page
             self.redirect("/blog/welcome")
 
@@ -115,12 +115,11 @@ class LoginPage(Handler):
         user = self.find_user(username)
         if user:
             # validate password
-            password_hashed = hash.make_secure_val(password)
-            if password_hashed == user.password:
+            if hash.valid_pw(username, password, user.password):
                 # set cookie and redirect to welcome page
                 user_id = str(user.key().id())
                 new_user_cookie = str(hash.make_secure_val(user_id))
-                self.response.headers.add_header('Set-Cookie', 'user_id=%s; Path=%s' % (new_user_cookie, "/"))
+                self.response.headers.add_header("Set-Cookie", "user_id=%s; Path=%s" % (new_user_cookie, "/"))
                 self.redirect("/blog/welcome")
             else:
                 # re-render login page with error
@@ -140,9 +139,18 @@ class LoginPage(Handler):
         return None
 
 
+class LogoutPage(Handler):
+
+    def get(self):
+        # clear cookie and redirect to signup page
+        self.response.headers.add_header("Set-Cookie", "user_id=%s; Path=%s" % ("", "/"))
+        self.redirect("/blog/signup")
+
+
 app = webapp2.WSGIApplication([
     ("/blog/signup", SignupPage),
     ("/blog/welcome", WelcomePage),
-    ("/blog/login", LoginPage)
+    ("/blog/login", LoginPage),
+    ("/blog/logout", LogoutPage)
     ],
     debug=True)
