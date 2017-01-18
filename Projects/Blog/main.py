@@ -163,7 +163,6 @@ class Comment(db.Model):
 
 
 class PostPage(BlogHandler):
-
     def get(self, post_id):
         key = db.Key.from_path("Post", int(post_id))
         post = db.get(key)
@@ -233,8 +232,6 @@ class Signup(BlogHandler):
         self.render("signup.html")
 
     def post(self):
-        print("POST request")
-
         have_error = False
         self.username = self.request.get("username")
         self.password = self.request.get("password")
@@ -244,27 +241,24 @@ class Signup(BlogHandler):
         params = dict(username=self.username,
                       email=self.email)
 
-        print(params)
-
         if not valid_username(self.username):
-            params["error_username"] = "That's not a valid username."
+            params["error_username"] = "Invalid username."
             have_error = True
 
         if not valid_password(self.password):
-            params["error_password"] = "That wasn't a valid password."
+            params["error_password"] = "Invalid password."
             have_error = True
 
         elif self.password != self.verify:
-            params["error_verify"] = "Your passwords didn't match."
+            params["error_verify"] = "Passwords didn't match."
             have_error = True
 
         if not valid_email(self.email):
-            params["error_email"] = "That's not a valid email."
+            params["error_email"] = "Invalid email address."
             have_error = True
 
         if have_error:
             self.render("signup.html", **params)
-            params = dict()
         else:
             self.done()
 
@@ -272,7 +266,7 @@ class Signup(BlogHandler):
         # make sure the user doesn't already exist
         u = User.by_name(self.username)
         if u:
-            msg = "That user already exists."
+            msg = "User already exists."
             self.render("signup.html", error_username=msg)
         else:
             u = User.register(self.username, self.password, self.email)
