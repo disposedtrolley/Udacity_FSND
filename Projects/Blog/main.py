@@ -14,7 +14,7 @@ template_dir = os.path.join(os.path.dirname(__file__), "templates")
 jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir),
                                autoescape=True)
 
-secret = "fart"
+secret = "aZv=ruFTAgFAeQ?w+Wp7h"
 
 
 def render_str(template, **params):
@@ -32,11 +32,6 @@ def check_secure_val(secure_val):
         return val
 
 
-def render_post(response, post):
-    response.out.write("<b>" + post.subject + "</b><br>")
-    response.out.write(post.content)
-
-
 # user stuff
 def make_salt(length=5):
     return "".join(random.choice(letters) for x in xrange(length))
@@ -52,15 +47,6 @@ def make_pw_hash(name, pw, salt=None):
 def valid_pw(name, password, h):
     salt = h.split(",")[0]
     return h == make_pw_hash(name, password, salt)
-
-
-def users_key(group="default"):
-    return db.Key.from_path("users", group)
-
-
-# blog stuff
-def blog_key(name="default"):
-    return db.Key.from_path("blogs", name)
 
 
 class BlogHandler(webapp2.RequestHandler):
@@ -112,7 +98,7 @@ class User(db.Model):
 
     @classmethod
     def by_id(cls, uid):
-        return User.get_by_id(uid, parent=users_key())
+        return User.get_by_id(uid)
 
     @classmethod
     def by_name(cls, name):
@@ -122,8 +108,7 @@ class User(db.Model):
     @classmethod
     def register(cls, name, pw, email=None):
         pw_hash = make_pw_hash(name, pw)
-        return User(parent=users_key(),
-                    name=name,
+        return User(name=name,
                     pw_hash=pw_hash,
                     email=email)
 
@@ -180,7 +165,7 @@ class Comment(db.Model):
 class PostPage(BlogHandler):
 
     def get(self, post_id):
-        key = db.Key.from_path("Post", int(post_id), parent=blog_key())
+        key = db.Key.from_path("Post", int(post_id))
         post = db.get(key)
 
         comments = Comment.by_post_id(post_id)
@@ -192,7 +177,7 @@ class PostPage(BlogHandler):
         self.render("post.html", post=post, comments=comments)
 
     def post(self, post_id):
-        key = db.Key.from_path("Post", int(post_id), parent=blog_key())
+        key = db.Key.from_path("Post", int(post_id))
         post = db.get(key)
         comment_text = self.request.get("comment")
         if comment_text:
@@ -220,7 +205,7 @@ class NewPost(BlogHandler):
         content = self.request.get("content")
 
         if subject and content:
-            p = Post(parent=blog_key(), subject=subject, content=content,
+            p = Post(subject=subject, content=content,
                      author=self.user.name)
             p.put()
             self.redirect("/blog/post/%s" % str(p.key().id()))
@@ -248,6 +233,8 @@ class Signup(BlogHandler):
         self.render("signup.html")
 
     def post(self):
+        print("POST request")
+
         have_error = False
         self.username = self.request.get("username")
         self.password = self.request.get("password")
@@ -257,6 +244,8 @@ class Signup(BlogHandler):
         params = dict(username=self.username,
                       email=self.email)
 
+        print(params)
+
         if not valid_username(self.username):
             params["error_username"] = "That's not a valid username."
             have_error = True
@@ -264,6 +253,7 @@ class Signup(BlogHandler):
         if not valid_password(self.password):
             params["error_password"] = "That wasn't a valid password."
             have_error = True
+
         elif self.password != self.verify:
             params["error_verify"] = "Your passwords didn't match."
             have_error = True
@@ -274,14 +264,10 @@ class Signup(BlogHandler):
 
         if have_error:
             self.render("signup.html", **params)
+            params = dict()
         else:
             self.done()
 
-    def done(self, *a, **kw):
-        raise NotImplementedError
-
-
-class Register(Signup):
     def done(self):
         # make sure the user doesn't already exist
         u = User.by_name(self.username)
@@ -338,7 +324,7 @@ app = webapp2.WSGIApplication([("/", MainPage),
                                ("/blog/?", BlogFront),
                                ("/blog/post/([0-9]+)", PostPage),
                                ("/blog/newpost", NewPost),
-                               ("/blog/signup", Register),
+                               ("/blog/signup", Signup),
                                ("/blog/login", Login),
                                ("/blog/logout", Logout),
                                ("/blog/welcome", Welcome),

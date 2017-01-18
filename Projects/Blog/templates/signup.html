@@ -10,7 +10,7 @@
                 {% if error_username %}
                     <div class="form-group has-error">
                         <label class="control-label" for="inputError">Invalid username</label>
-                        <input type="text" class="form-control input-lg" id="inputError" placeholder="Username">
+                        <input type="text" class="form-control input-lg" name="username" id="inputError" placeholder="Username">
                     </div>
                 {% else %}
                     <div class="form-group">
@@ -21,7 +21,7 @@
                 {% if error_password %}
                     <div class="form-group has-error">
                         <label class="control-label" for="inputError">Invalid password</label>
-                        <input type="password" class="form-control input-lg" id="inputError" placeholder="Password">
+                        <input type="password" class="form-control input-lg" name="password" id="inputError" placeholder="Password">
                     </div>
                 {% else %}
                     <div class="form-group">
@@ -32,7 +32,7 @@
                 {% if error_verify %}
                     <div class="form-group has-error">
                             <label class="control-label" for="inputError">Passwords don't match</label>
-                            <input type="password" class="form-control input-lg" id="inputError" placeholder="Verify password">
+                            <input type="password" class="form-control input-lg" name="verify" id="inputError" placeholder="Verify password">
                     </div>
                 {% else %}
                     <div class="form-group">
@@ -43,7 +43,7 @@
                 {% if error_email %}
                     <div class="form-group has-error">
                         <label class="control-label" for="inputError">Invalid email address</label>
-                        <input type="email" class="form-control input-lg" id="inputError" placeholder="Email Address (optional)">
+                        <input type="email" class="form-control input-lg" name="email" id="inputError" placeholder="Email Address (optional)">
                     </div>
                 {% else %}
                     <div class="form-group">
