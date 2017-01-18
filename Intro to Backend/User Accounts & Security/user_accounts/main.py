@@ -100,7 +100,6 @@ class SignupPage(Handler):
 
 
 class LoginPage(Handler):
-
     def write_form(self, valid_login=""):
         self.render("login.html", valid_login=valid_login)
 
@@ -140,7 +139,6 @@ class LoginPage(Handler):
 
 
 class LogoutPage(Handler):
-
     def get(self):
         # clear cookie and redirect to signup page
         self.response.headers.add_header("Set-Cookie", "user_id=%s; Path=%s" % ("", "/"))
