@@ -4,7 +4,7 @@ from google.appengine.ext import db
 class Comment(db.Model):
     post_id = db.StringProperty(required=True)
     username = db.StringProperty(required=True)
-    comment = db.StringProperty(required=True)
+    comment = db.TextProperty(required=True)
     created = db.DateTimeProperty(auto_now_add=True)
 
     @classmethod

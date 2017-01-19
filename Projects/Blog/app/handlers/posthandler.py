@@ -35,9 +35,6 @@ class NewPostHandler(BlogHandler):
             self.redirect("/blog/login")
 
     def post(self):
-        if not self.user:
-            self.redirect("/blog")
-
         subject = self.request.get("subject")
         content = self.request.get("content")
 

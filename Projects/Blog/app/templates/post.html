@@ -83,7 +83,9 @@
                     <h4 class="media-heading"><a href="/blog/profile/{{comment.username}}">{{comment.username}}</a>
                         <small>{{comment.created.strftime("%b %d, %Y")}} at {{comment.created.strftime("%-I:%M%p")}}</small>
                     </h4>
-                    {{comment.comment}}
+                    {% for line in comment.comment.splitlines() %}
+                        {{line}}<br>
+                    {% endfor %}
                 </div>
             </div>
         {% endfor %}
