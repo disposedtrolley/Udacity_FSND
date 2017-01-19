@@ -8,18 +8,21 @@ class PostPageHandler(BlogHandler):
 
         if post:
             comments = Comment.by_post_id(post_id)
-            like_self = None
-            like_others_num = None
-            like_others = []
-            username = None
             if self.user:
-                like_self = Like.by_post_id_uid(post_id, self.user.name)
-                like_others_num = Like.by_post_id_ex_uid_num(post_id, self.user.name)
+                like_self = Like.by_post_id_uid(post_id,
+                                                self.user.name)
+                like_others_num = Like.by_post_id_ex_uid_num(post_id,
+                                                             self.user.name)
                 like_others = Like.by_post_id(post_id)
                 username = self.user.name
-            self.render("post.html", post=post, comments=comments,
-                        like_self=like_self, like_others_num=like_others_num,
-                        like_others=like_others, username=username)
+                self.render("post.html",
+                            post=post,
+                            comments=comments,
+                            like_self=like_self,
+                            like_others_num=like_others_num,
+                            like_others=like_others, username=username)
+            else:
+                self.render("post_unauthed.html", post=post, comments=comments)
         else:
             self.redirect("/blog")
 
