@@ -11,6 +11,12 @@
         <!-- Title -->
         <h1>{{post.subject}}</h1>
 
+        {% if post.author == username %}
+            <form action="{{post.key().id()}}/edit" method="get">
+                <button class="btn btn-default pull-right" type="submit"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+            </form>
+        {% endif %}
+
         <!-- Author -->
         <p class="lead">
             by <a href="/blog/profile/{{post.author}}">{{post.author}}</a>

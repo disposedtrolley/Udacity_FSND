@@ -50,3 +50,32 @@ class NewPostHandler(BlogHandler):
             error = "Please enter subject and content."
             self.render("newpost.html", subject=subject, content=content,
                         error=error)
+
+
+class EditPostHandler(BlogHandler):
+    def get(self, post_id):
+        post = Post.get_by_id(int(post_id))
+        if self.user and self.user.name == post.author:
+            self.render("editpost.html", post=post)
+        else:
+            self.redirect("/blog")
+
+    def post(self, post_id):
+        post = Post.get_by_id(int(post_id))
+
+        edited_subject = self.request.get("subject")
+        edited_content = self.request.get("content")
+
+        save_clicked = self.request.get("save")
+
+        if save_clicked:
+            if edited_subject and edited_content:
+                post.subject = edited_subject
+                post.content = edited_content
+                post.put()
+                self.redirect("/blog/post/%s" % post_id)
+            else:
+                error = "Please enter subject and content."
+                self.render("editpost.html", post={"subject": edited_subject,
+                                                   "content": edited_content},
+                            error=error)

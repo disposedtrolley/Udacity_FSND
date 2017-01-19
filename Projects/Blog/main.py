@@ -3,7 +3,7 @@ import webapp2
 from app.handlers.basehandler import BlogHandler
 from app.handlers.mainpagehandler import MainPageHandler
 from app.handlers.blogfronthandler import BlogFrontHandler
-from app.handlers.posthandler import PostPageHandler, NewPostHandler
+from app.handlers.posthandler import PostPageHandler, NewPostHandler, EditPostHandler
 from app.handlers.authhandler import LoginHandler, LogoutHandler
 from app.handlers.welcomehandler import WelcomeHandler
 from app.handlers.profilehandler import ProfileHandler
@@ -17,6 +17,7 @@ app = webapp2.WSGIApplication([("/", MainPageHandler),
                                ("/blog/post/comment", CommentHandler),
                                ("/blog/post/new", NewPostHandler),
                                ("/blog/post/like", LikeHandler),
+                               ("/blog/post/([0-9]+)/edit", EditPostHandler),
                                ("/blog/signup", SignupHandler),
                                ("/blog/login", LoginHandler),
                                ("/blog/logout", LogoutHandler),
