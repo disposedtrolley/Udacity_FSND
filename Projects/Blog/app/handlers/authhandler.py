@@ -1,7 +1,7 @@
 from app.handlers.basehandler import *
 
 
-class Login(BlogHandler):
+class LoginHandler(BlogHandler):
     def get(self):
         self.render("login.html")
 
@@ -18,7 +18,7 @@ class Login(BlogHandler):
             self.render("login.html", error=msg)
 
 
-class Logout(BlogHandler):
+class LogoutHandler(BlogHandler):
     def get(self):
         self.logout()
         self.redirect("/blog")

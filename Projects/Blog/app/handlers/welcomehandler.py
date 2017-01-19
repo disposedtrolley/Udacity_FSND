@@ -1,7 +1,7 @@
 from app.handlers.basehandler import *
 
 
-class Welcome(BlogHandler):
+class WelcomeHandler(BlogHandler):
     def get(self):
         if self.user:
             self.render("welcome.html", username=self.user.name)

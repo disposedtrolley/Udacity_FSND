@@ -5,22 +5,24 @@ from app.models.comment import Comment
 from app.models.user import User
 
 from app.handlers.basehandler import BlogHandler
-from app.handlers.mainpagehandler import MainPage
-from app.handlers.blogfronthandler import BlogFront
-from app.handlers.posthandler import PostPage, NewPost
-from app.handlers.authhandler import Login, Logout
-from app.handlers.welcomehandler import Welcome
-from app.handlers.profilehandler import Profile
-from app.handlers.signuphandler import Signup
+from app.handlers.mainpagehandler import MainPageHandler
+from app.handlers.blogfronthandler import BlogFrontHandler
+from app.handlers.posthandler import PostPageHandler, NewPostHandler
+from app.handlers.authhandler import LoginHandler, LogoutHandler
+from app.handlers.welcomehandler import WelcomeHandler
+from app.handlers.profilehandler import ProfileHandler
+from app.handlers.signuphandler import SignupHandler
+from app.handlers.commenthandler import CommentHandler
 
-app = webapp2.WSGIApplication([("/", MainPage),
-                               ("/blog/?", BlogFront),
-                               ("/blog/post/([0-9]+)", PostPage),
-                               ("/blog/newpost", NewPost),
-                               ("/blog/signup", Signup),
-                               ("/blog/login", Login),
-                               ("/blog/logout", Logout),
-                               ("/blog/welcome", Welcome),
-                               ("/blog/profile/(\w+)", Profile)
+app = webapp2.WSGIApplication([("/", MainPageHandler),
+                               ("/blog/?", BlogFrontHandler),
+                               ("/blog/post/([0-9]+)", PostPageHandler),
+                               ("/blog/newpost", NewPostHandler),
+                               ("/blog/signup", SignupHandler),
+                               ("/blog/login", LoginHandler),
+                               ("/blog/logout", LogoutHandler),
+                               ("/blog/welcome", WelcomeHandler),
+                               ("/blog/profile/(\w+)", ProfileHandler),
+                               ("/blog/post/comment", CommentHandler)
                                ],
                               debug=True)

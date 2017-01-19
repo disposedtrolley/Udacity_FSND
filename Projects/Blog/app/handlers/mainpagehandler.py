@@ -1,6 +1,6 @@
 from app.handlers.basehandler import *
 
 
-class MainPage(BlogHandler):
+class MainPageHandler(BlogHandler):
     def get(self):
         self.write("Hello, Udacity!")

@@ -18,7 +18,7 @@ def valid_email(email):
     return not email or EMAIL_RE.match(email)
 
 
-class Signup(BlogHandler):
+class SignupHandler(BlogHandler):
     def get(self):
         self.render("signup.html")
 

@@ -1,6 +1,6 @@
 from app.handlers.basehandler import *
 
 
-class Profile(BlogHandler):
+class ProfileHandler(BlogHandler):
     def get(self, username):
         self.render("profile.html", username=username)

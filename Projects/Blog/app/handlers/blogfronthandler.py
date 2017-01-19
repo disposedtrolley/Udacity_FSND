@@ -1,7 +1,7 @@
 from app.handlers.basehandler import *
 
 
-class BlogFront(BlogHandler):
+class BlogFrontHandler(BlogHandler):
     def get(self):
         posts = greetings = Post.all().order("-created")
         user_cookie_id = self.read_secure_cookie("user_id")
