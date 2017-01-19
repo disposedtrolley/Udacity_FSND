@@ -22,3 +22,37 @@ class CommentHandler(BlogHandler):
         else:
             # @TODO should alert uset with error
             self.redirect(referrer)
+
+
+class EditCommentHandler(BlogHandler):
+    def post(self, post_id, comment_id):
+        comment = Comment.by_id(int(comment_id))
+        save_clicked = self.request.get("save")
+        cancel_clicked = self.request.get("cancel")
+        delete_clicked = self.request.get("delete")
+
+        edited_comment = self.request.get("comment")
+
+        if save_clicked:
+            self.save_edit(edited_comment, comment, post_id)
+        elif cancel_clicked:
+            self.cancel_edit(post_id)
+        elif delete_clicked:
+            self.delete_edit(comment, post_id)
+        else:
+            self.redirect("/blog")
+
+    def save_edit(self, edited_comment, comment, post_id):
+        if edited_comment:
+            comment.comment = edited_comment
+            comment.put()
+            self.redirect("/blog/post/%s" % post_id)
+        else:
+            self.write("error")
+
+    def cancel_edit(self, post_id):
+        self.redirect("/blog/post/%s" % post_id)
+
+    def delete_edit(self, comment, post_id):
+        comment.delete()
+        self.redirect("/blog/post/%s" % post_id)

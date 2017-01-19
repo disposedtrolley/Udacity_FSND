@@ -64,13 +64,10 @@ class EditPostHandler(BlogHandler):
         edited_content = self.request.get("content")
 
         save_clicked = self.request.get("save")
-        cancel_clicked = self.request.get("cancel")
         delete_clicked = self.request.get("delete")
 
         if save_clicked:
             self.save_edit(edited_subject, edited_content, post, post_id)
-        elif cancel_clicked:
-            self.cancel_edit(post_id)
         elif delete_clicked:
             self.delete_edit(post)
         else:
@@ -87,9 +84,6 @@ class EditPostHandler(BlogHandler):
             self.render("editpost.html", post={"subject": edited_subject,
                                                "content": edited_content},
                         error=error)
-
-    def cancel_edit(self, post_id):
-        self.redirect("/blog/post/%s" % post_id)
 
     def delete_edit(self, post):
         post.delete()
