@@ -3,7 +3,6 @@ import jinja2
 import hmac
 import os
 import re
-
 from google.appengine.ext import db
 
 from app.models.user import User
