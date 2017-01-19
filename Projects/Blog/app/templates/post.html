@@ -46,14 +46,14 @@
                         <span class="glyphicon glyphicon-thumbs-up"></span>
                     </button>
                     {% endif %}
-                    You and {{like_others}} others liked this.
+                    <a href="#" data-toggle="modal" data-target="#myModal">You and {{like_others_num}} others</a>  liked this.
                 {% else %}
                     {% if post.author != username %}
                     <button type="submit" class="btn btn-default button-like">
                         <span class="glyphicon glyphicon-thumbs-up"></span>
                     </button>
                     {% endif %}
-                    {{like_others}} people liked this.
+                    <a href="#" data-toggle="modal" data-target="#myModal">{{like_others_num}} people</a>  liked this.
                 {% endif %}
             </form>
             <br>
@@ -87,6 +87,28 @@
         {% endfor %}
 
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Likes</h4>
+                </div>
+                <div class="modal-body">
+                    {% for like in like_others %}
+                        <a href="/blog/profile/{{like.username}}">{{like.username}}</a>
+                        <br>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+      </div>
 
 </div>
 <!-- /.row -->
