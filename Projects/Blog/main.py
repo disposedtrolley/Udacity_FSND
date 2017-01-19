@@ -17,12 +17,12 @@ from app.handlers.commenthandler import CommentHandler
 app = webapp2.WSGIApplication([("/", MainPageHandler),
                                ("/blog/?", BlogFrontHandler),
                                ("/blog/post/([0-9]+)", PostPageHandler),
-                               ("/blog/newpost", NewPostHandler),
+                               ("/blog/post/comment", CommentHandler),
+                               ("/blog/post/new", NewPostHandler),
                                ("/blog/signup", SignupHandler),
                                ("/blog/login", LoginHandler),
                                ("/blog/logout", LogoutHandler),
                                ("/blog/welcome", WelcomeHandler),
-                               ("/blog/profile/(\w+)", ProfileHandler),
-                               ("/blog/post/comment", CommentHandler)
+                               ("/blog/profile/(\w+)", ProfileHandler)
                                ],
                               debug=True)

@@ -1,5 +1,4 @@
 from app.handlers.basehandler import *
-from app.models.comment import Comment
 
 
 class CommentHandler(BlogHandler):
