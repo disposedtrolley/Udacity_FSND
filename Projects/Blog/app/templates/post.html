@@ -36,9 +36,17 @@
 
         <!-- Comments Form -->
         {% if auth_user %}
+            <form class="form-like" method="post" action="like">
+                {% if like_self %}
+                    <button type="submit" class="btn btn-info button-like"><span class="glyphicon glyphicon-thumbs-up"></span></button> You and {{like_others}} others liked this.
+                {% else %}
+                    <button type="submit" class="btn btn-default button-like"><span class="glyphicon glyphicon-thumbs-up"></span></button> {{like_others}} people liked this.
+                {% endif %}
+            </form>
+            <br>
             <div class="well">
                 <h4>Leave a Comment:</h4>
-                <form role="form" method="post" action="comment">
+                <form method="post" action="comment">
                     <div class="form-group">
                         <textarea class="form-control" rows="3" name="comment"></textarea>
                     </div>
@@ -46,7 +54,7 @@
                 </form>
             </div>
         {% else %}
-            <a href="/blog/login">Login</a> to post comments.
+            <a href="/blog/login">Login</a> to like and post comments.
         {% endif %}
 
         <hr>

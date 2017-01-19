@@ -8,7 +8,13 @@ class PostPageHandler(BlogHandler):
 
         if post:
             comments = Comment.by_post_id(post_id)
-            self.render("post.html", post=post, comments=comments)
+            like_self = None
+            like_others = None
+            if self.user:
+                like_self = Like.by_post_id_uid(post_id, self.user.name)
+                like_others = Like.by_post_id_ex_uid_num(post_id, self.user.name)
+            self.render("post.html", post=post, comments=comments,
+                        like_self=like_self, like_others=like_others)
         else:
             self.redirect("/blog")
 

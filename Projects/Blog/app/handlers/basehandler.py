@@ -8,6 +8,7 @@ from google.appengine.ext import db
 from app.models.user import User
 from app.models.post import Post
 from app.models.comment import Comment
+from app.models.like import Like
 
 template_dir = os.path.join(os.path.dirname(__file__), '..', "templates")
 jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir),

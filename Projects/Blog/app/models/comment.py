@@ -15,7 +15,7 @@ class Comment(db.Model):
     def by_username(cls, username):
         q = Comment.all().filter('username = ', username)
         q.order('-created')
-        return q.fetch(10)
+        return q
 
     @classmethod
     def by_post_id(cls, pid):
