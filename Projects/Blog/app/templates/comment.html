@@ -18,9 +18,11 @@
         <div class="media-body">
             <h4 class="media-heading"><a href="/blog/profile/{{comment.username}}">
                 {{comment.username}}</a>
+                {% if comment.username == username %}
                 <div class="hover-btn">
                     <button type="button" data-toggle="modal" data-target="#{{comment.key().id()}}-edit-modal" class="close"><span class="glyphicon glyphicon-pencil"></span></button>
                 </div>
+                {% endif %}
                 <small>{{comment.created.strftime("%b %d, %Y")}} at {{comment.created.strftime("%-I:%M%p")}}</small>
             </h4>
             {% for line in comment.comment.splitlines() %}

@@ -27,18 +27,21 @@ class CommentHandler(BlogHandler):
 class EditCommentHandler(BlogHandler):
     def post(self, post_id, comment_id):
         comment = Comment.by_id(int(comment_id))
-        save_clicked = self.request.get("save")
-        cancel_clicked = self.request.get("cancel")
-        delete_clicked = self.request.get("delete")
+        if self.user and self.user.name == comment.username:
+            save_clicked = self.request.get("save")
+            cancel_clicked = self.request.get("cancel")
+            delete_clicked = self.request.get("delete")
 
-        edited_comment = self.request.get("comment")
+            edited_comment = self.request.get("comment")
 
-        if save_clicked:
-            self.save_edit(edited_comment, comment, post_id)
-        elif cancel_clicked:
-            self.cancel_edit(post_id)
-        elif delete_clicked:
-            self.delete_edit(comment, post_id)
+            if save_clicked:
+                self.save_edit(edited_comment, comment, post_id)
+            elif cancel_clicked:
+                self.cancel_edit(post_id)
+            elif delete_clicked:
+                self.delete_edit(comment, post_id)
+            else:
+                self.redirect("/blog")
         else:
             self.redirect("/blog")
 
