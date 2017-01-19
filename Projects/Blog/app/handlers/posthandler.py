@@ -14,7 +14,8 @@ class PostPageHandler(BlogHandler):
                 like_self = Like.by_post_id_uid(post_id, self.user.name)
                 like_others = Like.by_post_id_ex_uid_num(post_id, self.user.name)
             self.render("post.html", post=post, comments=comments,
-                        like_self=like_self, like_others=like_others)
+                        like_self=like_self, like_others=like_others,
+                        username=self.user.name)
         else:
             self.redirect("/blog")
 

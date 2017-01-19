@@ -37,10 +37,23 @@
         <!-- Comments Form -->
         {% if auth_user %}
             <form class="form-like" method="post" action="like">
+                <!-- display different like button colour and text if
+                currently logged-in user has liked the post -->
                 {% if like_self %}
-                    <button type="submit" class="btn btn-info button-like"><span class="glyphicon glyphicon-thumbs-up"></span></button> You and {{like_others}} others liked this.
+                    <!-- hide like button for users' own posts -->
+                    {% if post.author != username %}
+                    <button type="submit" class="btn btn-info button-like">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                    </button>
+                    {% endif %}
+                    You and {{like_others}} others liked this.
                 {% else %}
-                    <button type="submit" class="btn btn-default button-like"><span class="glyphicon glyphicon-thumbs-up"></span></button> {{like_others}} people liked this.
+                    {% if post.author != username %}
+                    <button type="submit" class="btn btn-default button-like">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                    </button>
+                    {% endif %}
+                    {{like_others}} people liked this.
                 {% endif %}
             </form>
             <br>
