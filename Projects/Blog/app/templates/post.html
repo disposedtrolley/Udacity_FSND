@@ -51,14 +51,14 @@
                     <span class="glyphicon glyphicon-thumbs-up"></span>
                 </button>
                 {% endif %}
-                <a href="#" data-toggle="modal" data-target="#myModal">You and {{like_others_num}} others</a>  liked this.
+                <a href="#" data-toggle="modal" data-target="#likes-modal">You and {{like_others_num}} others</a>  liked this.
             {% else %}
                 {% if post.author != username %}
                 <button type="submit" class="btn btn-default button-like">
                     <span class="glyphicon glyphicon-thumbs-up"></span>
                 </button>
                 {% endif %}
-                <a href="#" data-toggle="modal" data-target="#myModal">{{like_others_num}} people</a>  liked this.
+                <a href="#" data-toggle="modal" data-target="#likes-modal">{{like_others_num}} people</a>  liked this.
             {% endif %}
         </form>
         <br>
@@ -91,7 +91,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal fade" id="likes-modal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
