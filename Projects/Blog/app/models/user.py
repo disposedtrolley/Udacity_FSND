@@ -28,7 +28,7 @@ class User(db.Model):
 
     @classmethod
     def by_id(cls, uid):
-        return User.get_by_id(uid)
+        return User.get_by_id(int(uid))
 
     @classmethod
     def by_name(cls, name):

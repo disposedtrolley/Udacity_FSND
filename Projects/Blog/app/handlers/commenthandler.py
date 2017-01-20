@@ -2,15 +2,20 @@ from app.handlers.basehandler import *
 
 
 class CommentHandler(BlogHandler):
+    """Class handles comment posting.
+    """
     def get(self):
         self.redirect("/blog")
 
     def post(self):
+        """Adds a new comment to the datastore.
+        """
+
+        # keep reference to the post page for redirection later
         referrer = self.request.referer
         post_id = referrer.split("/")[-1]
 
-        key = db.Key.from_path("Post", int(post_id))
-        post = db.get(key)
+        post = Post.by_id(post_id)
 
         comment_text = self.request.get("comment")
         self.write(comment_text)
@@ -20,13 +25,21 @@ class CommentHandler(BlogHandler):
             new_comment.put()
             self.redirect(referrer)
         else:
-            # @TODO should alert uset with error
+            # TODO should render page with error
             self.redirect(referrer)
 
 
 class EditCommentHandler(BlogHandler):
+    """Class handles editing or deleting an existing comment.
+    """
+    def get(self):
+        self.redirect("/blog")
+
     def post(self, post_id, comment_id):
-        comment = Comment.by_id(int(comment_id))
+        """Retrieves the user's intention and either saves or discards the edit,
+        or deletes the comment.
+        """
+        comment = Comment.by_id(comment_id)
         if self.user and self.user.name == comment.username:
             save_clicked = self.request.get("save")
             cancel_clicked = self.request.get("cancel")
@@ -46,12 +59,16 @@ class EditCommentHandler(BlogHandler):
             self.redirect("/blog")
 
     def save_edit(self, edited_comment, comment, post_id):
+        """Overwrites the existing comment in the datastore with the edited
+        version.
+        """
         if edited_comment:
             comment.comment = edited_comment
             comment.put()
             self.redirect("/blog/post/%s" % post_id)
         else:
-            self.write("error")
+            # TODO should render page with error
+            self.redirect("/blog/post/%s" % post_id)
 
     def cancel_edit(self, post_id):
         self.redirect("/blog/post/%s" % post_id)

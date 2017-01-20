@@ -2,10 +2,11 @@ from app.handlers.basehandler import *
 
 
 class BlogFrontHandler(BlogHandler):
+    """Class handles the home page of the blog.
+    """
     def get(self):
-        posts = greetings = Post.all().order("-created")
-        user_cookie_id = self.read_secure_cookie("user_id")
-        if self.user:
-            self.render("home.html", posts=posts)
-        else:
-            self.render("home.html", posts=posts)
+        """Retrieves all of the posts in the datastore in descending order
+        of creation date. Renders the home page with the posts.
+        """
+        posts = Post.all().order("-created")
+        self.render("home.html", posts=posts)

@@ -9,7 +9,7 @@ class Comment(db.Model):
 
     @classmethod
     def by_id(cls, cid):
-        return Comment.get_by_id(cid)
+        return Comment.get_by_id(int(cid))
 
     @classmethod
     def by_username(cls, username):

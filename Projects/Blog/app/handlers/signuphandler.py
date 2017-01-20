@@ -19,10 +19,14 @@ def valid_email(email):
 
 
 class SignupHandler(BlogHandler):
+    """Class handles requests to the registration page.
+    """
     def get(self):
         self.render("signup.html")
 
     def post(self):
+        """Validates all required fields have been filled.
+        """
         have_error = False
         self.username = self.request.get("username")
         self.password = self.request.get("password")
@@ -54,7 +58,9 @@ class SignupHandler(BlogHandler):
             self.done()
 
     def done(self):
-        # make sure the user doesn't already exist
+        """Checks if the username is taken. If not, a new user is added to the
+        datastore and the user is logged in.
+        """
         u = User.by_name(self.username)
         if u:
             msg = "User already exists."

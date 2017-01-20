@@ -7,7 +7,7 @@ class Like(db.Model):
 
     @classmethod
     def by_id(cls, lid):
-        return Like.get_by_id(lid)
+        return Like.get_by_id(int(lid))
 
     @classmethod
     def by_username(cls, username):

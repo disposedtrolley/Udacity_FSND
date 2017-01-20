@@ -2,7 +2,12 @@ from app.handlers.basehandler import *
 
 
 class PostPageHandler(BlogHandler):
+    """Class handles requests to the individual post pages.
+    """
     def get(self, post_id):
+        """Renders the post content, likes, and comments. Different templates
+        are rendered depending on whether the user is logged in or not.
+        """
         key = db.Key.from_path("Post", int(post_id))
         post = db.get(key)
 
@@ -28,6 +33,8 @@ class PostPageHandler(BlogHandler):
 
 
 class NewPostHandler(BlogHandler):
+    """Class handles new posts.
+    """
     def get(self):
         if self.user:
             self.render("newpost.html")
@@ -35,6 +42,9 @@ class NewPostHandler(BlogHandler):
             self.redirect("/blog/login")
 
     def post(self):
+        """Validates the subject and content of the new post and adds it to
+        the datastore if successful.
+        """
         subject = self.request.get("subject")
         content = self.request.get("content")
 
@@ -50,15 +60,23 @@ class NewPostHandler(BlogHandler):
 
 
 class EditPostHandler(BlogHandler):
+    """Class handles editing existing posts.
+    """
     def get(self, post_id):
-        post = Post.get_by_id(int(post_id))
+        """Validates that the currently logged-in user is the author of the post
+        before rendering the edit template.
+        """
+        post = Post.by_id(post_id)
         if self.user and self.user.name == post.author:
             self.render("editpost.html", post=post)
         else:
             self.redirect("/blog")
 
     def post(self, post_id):
-        post = Post.get_by_id(int(post_id))
+        """Retrieves the user's intention (save edit or delete post) and
+        calls the relevant helper function.
+        """
+        post = Post.by_id(post_id)
 
         edited_subject = self.request.get("subject")
         edited_content = self.request.get("content")
@@ -74,6 +92,9 @@ class EditPostHandler(BlogHandler):
             self.redirect("/blog")
 
     def save_edit(self, edited_subject, edited_content, post, post_id):
+        """Validates the subject and content of the post before updating the
+        existing record in the datastore.
+        """
         if edited_subject and edited_content:
             post.subject = edited_subject
             post.content = edited_content
