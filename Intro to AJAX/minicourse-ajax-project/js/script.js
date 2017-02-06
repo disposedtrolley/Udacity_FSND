@@ -51,6 +51,10 @@ function loadData() {
 
     var wikipediaBase = 'https://en.wikipedia.org/wiki/';
 
+    var wikiRequestTimeout = setTimeout(function() {
+        $wikiElem.text('Failed to get Wikipedia resources');
+    }, 8000);
+
     $.ajax({
         type: "GET",
         url: wikipediaUrl,
@@ -67,8 +71,8 @@ function loadData() {
                 "id": "wikipedia-links",
                 html: articles.join( "" )
             }).appendTo( ".wikipedia-container" );
-        },
-        error: function (errorMessage) {
+
+            clearTimeout(wikiRequestTimeout);
         }
     });
 
