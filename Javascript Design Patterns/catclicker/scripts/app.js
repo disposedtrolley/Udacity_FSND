@@ -1,26 +1,30 @@
 $(function() {
 
     var model = {
+
         init: function() {
             this.cats = [
-            {
-                name: 'Bella',
-                clickCount: 0
-            },
-            {
-                name: 'Tigger',
-                clickCount: 0
-            },
-            {
-                name: 'Oreo',
-                clickCount: 0
-            }];
+                {
+                    name: 'Bella',
+                    clickCount: 0,
+                    imgSrc: '/img/Bella.jpg'
+                },
+                {
+                    name: 'Tigger',
+                    clickCount: 0,
+                    imgSrc: '/img/Tigger.jpg'
+                },
+                {
+                    name: 'Oreo',
+                    clickCount: 0,
+                    imgSrc: '/img/Oreo.jpg'
+                }];
             this.currentCat = this.cats[0];
         },
 
         setCurrentCat: function(catName) {
-            for (var cat in this.cats) {
-                var thisCat = this.cats[cat];
+            for (var i = 0; i < this.cats.length; i++) {
+                var thisCat = this.cats[i];
                 if (thisCat.name === catName) {
                     this.currentCat = thisCat;
                 }
@@ -33,8 +37,8 @@ $(function() {
         },
 
         incrementClickCount: function() {
-            for (var cat in this.cats) {
-                var thisCat = this.cats[cat];
+            for (var i = 0; i < this.cats.length; i++) {
+                var thisCat = this.cats[i];
                 if (thisCat.name === this.currentCat.name) {
                     thisCat.clickCount += 1;
                 }
@@ -109,7 +113,8 @@ $(function() {
             var currentCat = controller.getCurrentCat();
             var catName = currentCat.name;
             var clickCount = currentCat.clickCount;
-            htmlStr += '<div class="cat-name"><h2 id="cat-name">' + catName + '</h2></div><div class="cat-image"><img id="cat-img" src="img/' + catName + '.jpg" alt="a picture of a cute cat"></div><div class="count-message"><p>You have clicked the cat <strong id="count-' + catName +  '">' + clickCount + '</strong> times!</p></div><button class="btn btn-success button-increment" id="increment-count-' + catName +  '">Click Me!</button>';
+            var imgSrc = currentCat.imgSrc;
+            htmlStr += '<div class="cat-name"><h2 id="cat-name">' + catName + '</h2></div><div class="cat-image"><img id="cat-img" src="' + imgSrc +  '" alt="a picture of a cute cat"></div><div class="count-message"><p>You have clicked the cat <strong id="count-' + catName +  '">' + clickCount + '</strong> times!</p></div><button class="btn btn-success button-increment" id="increment-count-' + catName +  '">Click Me!</button>';
             this.$catDetails.html(htmlStr);
         }
     };
