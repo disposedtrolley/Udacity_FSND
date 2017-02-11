@@ -8,25 +8,50 @@
 </head>
 <body>
     <div class="container">
-        <div class="header col-sm-12">
-            <h1>Cat Clicker</h1>
+        <div class="row">
+            <div class="header col-sm-12">
+                <h1>Cat Clicker</h1>
+            </div>
         </div>
 
-        <div class="list-group col-sm-3 cat-names">
+        <div class="row">
+            <div class="list-group col-sm-3 cat-names">
+            </div>
+
+            <div class="cat-container col-sm-9">
+                <div class="cat-name">
+                    <h2></h2>
+                </div>
+                <div class="cat-image">
+                    <img class="cat-img" src="" alt="A picture of a cute cat.">
+                </div>
+                <div class="count-message">
+                    <p>You have clicked the cat <strong class="count"></strong> times!</p>
+                </div>
+                <button class="btn btn-primary show-admin">Admin</button>
+                <br>
+                <br>
+                <div class="admin-container col-sm-9">
+                    <form>
+                        <div class="form-group">
+                            <label for="inputCatName">Cat Name</label>
+                            <input type="text" class="form-control" id="inputCatName">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputImageUrl">Image URL</label>
+                            <input type="text" class="form-control" id="inputImageUrl">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputClickCount">Number of Clicks</label>
+                            <input type="number" class="form-control" id="inputClickCount">
+                        </div>
+                        <button type="submit" class="btn btn-success save-details">Save</button>
+                        <button type="button" class="btn btn-danger cancel">Cancel</button>
+                    </form>
+                </div>
+            </div>
         </div>
 
-        <div class="cat-container col-sm-9">
-            <div class="cat-name">
-                <h2></h2>
-            </div>
-            <div class="cat-image">
-                <img class="cat-img" src="" alt="A picture of a cute cat.">
-            </div>
-            <div class="count-message">
-                <p>You have clicked the cat <strong class="count"></strong> times!</p>
-            </div>
-            <button class="btn btn-success" id="increment-count">Click Me!</button>
-        </div>
     </div>
 
     <script
