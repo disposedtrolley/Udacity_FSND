@@ -109,13 +109,18 @@ $(function() {
 
         render: function() {
             // populate cat details html into the container DOM node
-            var htmlStr = '';
             var currentCat = controller.getCurrentCat();
+
             var catName = currentCat.name;
             var clickCount = currentCat.clickCount;
             var imgSrc = currentCat.imgSrc;
-            htmlStr += '<div class="cat-name"><h2 id="cat-name">' + catName + '</h2></div><div class="cat-image"><img id="cat-img" src="' + imgSrc +  '" alt="a picture of a cute cat"></div><div class="count-message"><p>You have clicked the cat <strong id="count-' + catName +  '">' + clickCount + '</strong> times!</p></div><button class="btn btn-success button-increment" id="increment-count-' + catName +  '">Click Me!</button>';
-            this.$catDetails.html(htmlStr);
+
+            // update cat name
+            $('.cat-name > h2').text(catName);
+            // update cat image
+            $('.cat-img').attr('src', imgSrc);
+            // update click count
+            $('.count').text(clickCount);
         }
     };
 
